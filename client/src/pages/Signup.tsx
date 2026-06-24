@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 import type { ChangeEvent, FormEvent } from "react";
 import type { AxiosResponse } from "axios";
+import { toast } from "react-hot-toast";
 
 const Signup = () => {
   interface formType {
@@ -39,7 +40,7 @@ const Signup = () => {
         "/auth/signup",
         data,
       );
-      console.log(response.data);
+      toast.success(response.data.msg);
     } catch (e) {
       setMsg(axiosError(e));
       console.log(e);

@@ -2,7 +2,7 @@ import PixelBlast from "../components/PixelBlast";
 import { useState } from "react";
 import { api, axiosError } from "../lib/axios";
 import { Link, useNavigate } from "react-router-dom";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 import type { ChangeEvent, FormEvent } from "react";
 import type { AxiosResponse } from "axios";
@@ -137,7 +137,6 @@ const Login = () => {
           <p className="text-red-400">{msg}</p>
         </form>
       </div>
-      <Toaster position="top-right"/>
     </div>
   );
 };
