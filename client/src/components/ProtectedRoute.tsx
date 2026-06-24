@@ -1,13 +1,9 @@
-import { createContext, useContext, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { api } from "../lib/axios"
 import { Navigate } from "react-router-dom"
 
 import type { ReactNode } from "react"
 
-type user = {
-    id: string,
-    username:string,
-}
 
 const ProtectedRoute = ({children}: {children: ReactNode}) => {
 
