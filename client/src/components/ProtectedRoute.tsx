@@ -11,7 +11,7 @@ const ProtectedRoute = ({children}: {children: ReactNode}) => {
     const [isAuth, setIsAuth] = useState(false)
 
     useEffect(()=>{
-        api.get("/me", {
+        api.get("/auth/me", {
             withCredentials: true
         })
         .then(()=>{
