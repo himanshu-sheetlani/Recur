@@ -24,6 +24,9 @@ const attemptSchema: Schema<AttemptI> = new mongoose.Schema({
         type: Boolean,
         required: true,
     },
+},
+{
+    timestamps: true
 })
 
 export const Attempt: Model<AttemptI> = mongoose.model("Attempt", attemptSchema)

@@ -16,9 +16,11 @@ app.use(cookieParser());
 
 import healthRouter from "./routes/health.route.ts"
 import authRouter from "./routes/auth.route.ts"
+import dashboardRoute from "./routes/dashboard.route.ts"
 
 app.use("/api/health", healthRouter)
 app.use("/api/auth", authRouter )
+app.use("/api/dashboard", dashboardRoute)
 
 app.listen(3000, ()=>{
     connectDB()
