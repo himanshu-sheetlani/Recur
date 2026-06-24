@@ -9,11 +9,11 @@ const JWT_Secret = process.env.JWT_SECRET as string
 
 export const login = async (req: Request, res: Response)=>{
     try{
-        const {username, email, password} = req.body;
-        if (!username || !email || !password ){
+        const {username, password} = req.body;
+        if (!username || !password ){
             return res.status(401).json({"msg": "invalid data entered"})
         }
-        const user = await User.findOne({username, email})
+        const user = await User.findOne({username})
 
         if (!user) {
             return res.status(401).json({"msg":"user not found"})
@@ -34,8 +34,10 @@ export const login = async (req: Request, res: Response)=>{
                 expiresIn: '7d'
             } 
         )
+        
+        res.cookie('token', token, {httpOnly: true, maxAge: 1000*60*60*24*7})
 
-        res.status(200).json({
+        return res.status(200).json({
             "msg": "login Successfull",
             "username": user.username,
         })
