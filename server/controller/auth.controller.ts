@@ -37,8 +37,7 @@ export const login = async (req: Request, res: Response)=>{
 
         res.status(200).json({
             "msg": "login Successfull",
-            "token": token,
-            "user": user._id
+            "username": user.username,
         })
     }
     catch(e){
@@ -51,12 +50,12 @@ export const signup = async (req: Request, res: Response) =>{
     try{
         const {username, email, password} = req.body;
         if (!username || !email || !password ){
-            return res.status(401).json({"msg": "invalid data entered"})
+            return res.status(422).json({"msg": "invalid data entered"})
         }
         const checkUser = await User.findOne({$or: [{ username }, { email }]})
 
         if (checkUser) {
-            return res.status(400).json({"msg":"user already exist"})
+            return res.status(409).json({"msg":"user already exist"})
         }
         const salt = await bcrypt.genSalt(12)
         const hashPassword = await bcrypt.hash(password, salt)
@@ -73,11 +72,11 @@ export const signup = async (req: Request, res: Response) =>{
             } 
         )
 
-        res.status(201).json({
-            "msg": "user created successfully",
-            "id": user._id,
-            "token" : token,
+        res.cookie('token', token, {httpOnly: true, maxAge: 1000*60*60*24*7})
 
+        return res.status(201).json({
+            "msg": "user created successfully",
+            "username": user.username,
         })
     } 
     catch(e){
