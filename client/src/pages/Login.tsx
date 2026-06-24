@@ -1,12 +1,15 @@
 import PixelBlast from "../components/PixelBlast";
 import { useState } from "react";
 import { api, axiosError } from "../lib/axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
 import type { ChangeEvent, FormEvent } from "react";
 import type { AxiosResponse } from "axios";
 
 const Login = () => {
+  const navigate = useNavigate()
+
   interface formType {
     username: string;
     password: string;
@@ -14,7 +17,7 @@ const Login = () => {
   interface APIRes {
     msg: string;
     username: string;
-  }
+  } 
 
   const [form, setForm] = useState<formType>({
     username: "",
@@ -37,9 +40,12 @@ const Login = () => {
         "/auth/login",
         data,
       );
-      console.log(response.data);
+      toast.success(response.data.msg);
+      navigate('/dashboard')
     } catch (e) {
-      setMsg(axiosError(e));
+      const err=axiosError(e)
+      // setMsg(err);
+      toast.error(err);
       console.log(e);
     }
   };
@@ -131,6 +137,7 @@ const Login = () => {
           <p className="text-red-400">{msg}</p>
         </form>
       </div>
+      <Toaster position="top-right"/>
     </div>
   );
 };

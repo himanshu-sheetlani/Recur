@@ -4,7 +4,8 @@ const backendURL= import.meta.env.VITE_API_BASE_URL + "/api"
 
 const api = axios.create({
     baseURL: backendURL,
-    timeout: 10000
+    timeout: 10000,
+    withCredentials: true,
 })
 
 const axiosError = (err:unknown): string =>{
