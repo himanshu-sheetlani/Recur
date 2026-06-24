@@ -1,13 +1,14 @@
 import PixelBlast from "../components/PixelBlast";
 import { useState } from "react";
 import { api, axiosError } from "../lib/axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import type { ChangeEvent, FormEvent } from "react";
 import type { AxiosResponse } from "axios";
 import { toast } from "react-hot-toast";
 
 const Signup = () => {
+  const navigate = useNavigate()
   interface formType {
     username: string;
     email: string;
@@ -41,6 +42,7 @@ const Signup = () => {
         data,
       );
       toast.success(response.data.msg);
+      navigate('/dashboard')
     } catch (e) {
       setMsg(axiosError(e));
       console.log(e);
