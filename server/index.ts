@@ -1,10 +1,15 @@
 import express from "express"
-import type {Request, Response} from 'express'
 import { connectDB } from "./utils/db.ts";
 import cors from 'cors'
 import cookieParser from 'cookie-parser';
+import {rateLimit} from 'express-rate-limit'
 
 const app = express();
+
+const limiter = rateLimit({
+  windowMs: 1000*60*15,
+  limit:50,
+})
 
 app.use(express.json())
 app.use(cors({
@@ -13,6 +18,7 @@ app.use(cors({
   credentials: true
 }));
 app.use(cookieParser());
+app.use(limiter)
 
 import healthRouter from "./routes/health.route.ts"
 import authRouter from "./routes/auth.route.ts"
