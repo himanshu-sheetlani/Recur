@@ -34,4 +34,4 @@ const questionSchema: Schema<questionI> = new mongoose.Schema({
     timestamps: true
 })
 
-export const Quesion: Model<questionI> = mongoose.model("Questions", questionSchema)
+export const Question: Model<questionI> = mongoose.model("Questions", questionSchema)

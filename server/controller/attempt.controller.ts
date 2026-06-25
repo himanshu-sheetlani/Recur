@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 import { Attempt, type AttemptI } from "../model/attempt.model.ts";
-import { Quesion, type questionI } from "../model/question.model.ts";
+import { Question, type questionI } from "../model/question.model.ts";
 import { createQuestions } from "./question.controller.ts";
 
 
@@ -16,7 +16,7 @@ export const createAttempt = async (req: Request, res: Response) =>{
     } = req.body;
 
     try{
-        const question = await Quesion.findOne({questionNo}) as questionI | null;
+        const question = await Question.findOne({questionNo}) as questionI | null;
         let questionId:any
         if (!question){
             questionId = await createQuestions({
@@ -49,7 +49,7 @@ export const createAttempt = async (req: Request, res: Response) =>{
 
 export const getAttempt = async (req: Request, res: Response)=>{
     const questionId = req.params.id
-    
+
     if (!questionId){
         return res.status(422).json("Invalid Data Entered")
     }
