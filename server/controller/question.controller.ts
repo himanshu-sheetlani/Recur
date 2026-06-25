@@ -1,7 +1,4 @@
 import { Question, type questionI } from "../model/question.model.ts";
-import jwt from "jsonwebtoken";
-
-import type { userToken } from "./checkAuth.controller.ts";
 import type { Request, Response } from "express";
 
 interface data{
@@ -20,17 +17,9 @@ export const createQuestions = async (body: data) =>{
 }
 
 export const getQuestions = async(req: Request, res: Response) =>{
-    const token = req.cookies.token
-    const secret = process.env.JWT_SECRET as string
-
-    if (!token){
-        return res.status(401).json({msg: "Unauthorized User"})
-    }
 
     try{
-        const user = jwt.verify(token, secret) as userToken
-        const userId = user.id
-
+        const userId = req.user.id
         const questions: questionI[] = await Question.find({userId})
 
         return res.status(200).json({msg: "Data Retrieved Successfully", questions})
