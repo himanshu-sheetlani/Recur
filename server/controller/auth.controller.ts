@@ -84,3 +84,10 @@ export const signup = async (req: Request, res: Response) =>{
         res.status(400).json({"msg": e})
     }
 }
+
+export const logout = (req: Request, res: Response) =>{
+    res.clearCookie('token', {
+        httpOnly: true,
+    })
+    return res.status(200).json({msg: "Logged out successfully"})
+}
