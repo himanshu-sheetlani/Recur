@@ -46,3 +46,18 @@ export const createAttempt = async (req: Request, res: Response) =>{
         res.status(400).json({msg: e})
     }
 }
+
+export const getAttempt = async (req: Request, res: Response)=>{
+    const questionId = req.params.id
+    
+    if (!questionId){
+        return res.status(422).json("Invalid Data Entered")
+    }
+    try{
+        const response: AttemptI[] = await Attempt.find({questionId, })
+        return res.status(200).json({msg: "Data Fetched Successfully", response})
+    }
+    catch(e){
+        return res.status(400).json({msg: "Somthing Went Wrong"})
+    }
+}
