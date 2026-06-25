@@ -16,7 +16,7 @@ export const createAttempt = async (req: Request, res: Response) =>{
     } = req.body;
 
     try{
-        const question = await Question.findOne({questionNo}) as questionI | null;
+        const question = await Question.findOne({questionNo, userId}) as questionI | null;
         let questionId:any
         if (!question){
             questionId = await createQuestions({
