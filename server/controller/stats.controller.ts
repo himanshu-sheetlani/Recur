@@ -1,7 +1,6 @@
 import type { Request, Response } from "express";
 import { Question, type questionI } from "../model/question.model.ts";
 import { Attempt } from "../model/attempt.model.ts";
-import { error } from "node:console";
 
 
 export const getStats = async (req: Request, res: Response) => {
@@ -65,6 +64,7 @@ export const getStats = async (req: Request, res: Response) => {
             const recentQuestions = await Attempt.find({
                 userId
             })
+            .populate("questionId", "questionNo name tag link")
             .sort({updatedAt: -1})
             .limit(5)
             return recentQuestions
@@ -73,14 +73,14 @@ export const getStats = async (req: Request, res: Response) => {
             return e
         }
     }
-
+    
     try{
         const tag = await difficultyTag()
         const totalQuestion = tag.easy + tag.medium + tag.hard
         const avgTime = await avgTimeTaken()
         const recentAttempt = await recent()
         
-        res.status(200).json({msg: "Successful", data: {tag, totalQuestion, avgTime, recentAttempt}})
+        res.status(200).json({msg: "Successful", tag, totalQuestion, avgTime, recentAttempt})
     }
     catch(e){
         res.status(400).json({msg: "Somthing went Wrong"})
