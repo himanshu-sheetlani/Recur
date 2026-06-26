@@ -3,7 +3,7 @@ import { api } from "../lib/axios"
 import { Navigate } from "react-router-dom"
 
 import type { ReactNode } from "react"
-import Loading from "./loading"
+import Loading from "./Loading"
 
 
 const ProtectedRoute = ({children}: {children: ReactNode}) => {
