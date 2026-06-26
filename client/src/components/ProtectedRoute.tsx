@@ -3,6 +3,7 @@ import { api } from "../lib/axios"
 import { Navigate } from "react-router-dom"
 
 import type { ReactNode } from "react"
+import Loading from "./loading"
 
 
 const ProtectedRoute = ({children}: {children: ReactNode}) => {
@@ -24,7 +25,7 @@ const ProtectedRoute = ({children}: {children: ReactNode}) => {
         })
     },[])
 
-    if (loading) return <div>Loading...</div>
+    if (loading) return <Loading />
 
     return isAuth? children : <Navigate to="/login"/>
 }
