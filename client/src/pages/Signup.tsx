@@ -44,7 +44,8 @@ const Signup = () => {
       toast.success(response.data.msg);
       navigate('/dashboard')
     } catch (e) {
-      setMsg(axiosError(e));
+      const err=axiosError(e)
+      toast.error(err);
       console.log(e);
     }
   };
