@@ -1,5 +1,5 @@
 import PixelBlast from "../components/PixelBlast";
-import Hero from "../components/Hero";
+import Hero from "../components/landing/Hero";
 import Navbar from "../components/Navbar";
 
 
