@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 import type {stats} from "../../types/stats"
 import {Badge} from "../ui/badge"
 import { Button } from "../ui/button"
-import { ArrowBigRight, ArrowBigRightDash, ArrowBigRightDashIcon, ArrowBigRightIcon, ArrowRight } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 
 // userId: string;
 // questionId: {
