@@ -18,10 +18,12 @@ const ProtectedRoute = ({children}: {children: ReactNode}) => {
         .then(()=>{
             setLoading(false)
             setIsAuth(true)
+            localStorage.setItem("isLoggedIn", "true")
         })
         .catch(()=>{
             setLoading(false)
             setIsAuth(false)
+            localStorage.removeItem("isLoggedIn")
         })
     },[])
 

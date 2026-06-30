@@ -1,34 +1,22 @@
-import toast from "react-hot-toast"
 import { api } from "../lib/axios"
-import { useNavigate } from "react-router-dom"
+
 import { useEffect, useState } from "react"
 import type { AxiosResponse } from "axios"
 import Navbar from '../components/Navbar'
 import Loading from "../components/Loading"
 import Main from "../components/dashboard/Main"
 
-import type { APIRes, stats } from "../types/stats"
+import type { stats } from "../types/stats"
 import SideBar from "../components/dashboard/SideBar"
 
 const Dashboard = () => {
   const [data, setData] = useState<stats | null>(null)
-  const navigate = useNavigate()
-  const logout = async() =>{
-    try{
-      const response: AxiosResponse<APIRes> = await api.post("/auth/logout")
-      toast.success(response.data.msg);
-      navigate('/login')
-    }
-    catch(e){
-      console.log(e)
-    }
-  }
+
 
   useEffect(()=>{
     const fetchData = async () => {
       try {
         const response: AxiosResponse<stats> = await api.get("/dashboard/stats")
-        console.log(response.data)
         setData(response.data)
       }
       catch (e){

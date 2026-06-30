@@ -42,6 +42,7 @@ const Signup = () => {
         data,
       );
       toast.success(response.data.msg);
+      localStorage.setItem("isLoggedIn", "true");
       navigate('/dashboard')
     } catch (e) {
       const err=axiosError(e)
