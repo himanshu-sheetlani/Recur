@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import type { APIRes } from "../types/stats";
 import { api } from "../lib/axios";
-import { LogOut, History } from "lucide-react";
+import { LogOut, History, Plus } from "lucide-react";
 
 const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(() => {
@@ -47,9 +47,11 @@ const Navbar = () => {
         <img src={logo} alt="LOGO" className="h-10 w-auto" />
       </div>
       {isLoggedIn ? (
-        <div className="bg-[#214f9b] w-5 h-5">
-
-        </div>
+        <Link to={'/add'}>
+          <div className="bg-[#214f9b] w-15 h-15 absolute top-3 left-1/2 rounded-full border-t-2 border-x-2 border-white/50 -translate-x-1/2 flex justify-center items-center">
+            <Plus className="w-10 h-10"/>
+          </div>
+        </Link>
       ): ("")}
 
       {isLoggedIn ? (
