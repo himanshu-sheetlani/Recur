@@ -2,6 +2,7 @@ import type { Request, Response } from "express";
 import { Attempt, type AttemptI } from "../model/attempt.model.ts";
 import { Question, type questionI } from "../model/question.model.ts";
 import { createQuestions } from "./question.controller.ts";
+import { Types } from "mongoose";
 
 
 export const createAttempt = async (req: Request, res: Response) =>{
@@ -48,13 +49,13 @@ export const createAttempt = async (req: Request, res: Response) =>{
 }
 
 export const getAttempt = async (req: Request, res: Response)=>{
-    const questionId = req.params.id
+    const questionId = new Types.ObjectId(req.params.id as string)
 
     if (!questionId){
         return res.status(422).json("Invalid Data Entered")
     }
     try{
-        const response: AttemptI[] = await Attempt.find({questionId, })
+        const response: AttemptI[] = await Attempt.find({questionId: questionId})
         return res.status(200).json({msg: "Data Fetched Successfully", response})
     }
     catch(e){

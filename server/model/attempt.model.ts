@@ -1,16 +1,15 @@
-import mongoose, { Model, Schema } from "mongoose";
-import type { ObjectId } from "mongoose";
+import mongoose, { Model, Schema, Types } from "mongoose";
 
 export interface AttemptI{
-    userId: string,
-    questionId: mongoose.Schema.Types.ObjectId,
+    userId: Types.ObjectId,
+    questionId: Types.ObjectId,
     time: number,
     hint: boolean,
 }
 
 const attemptSchema: Schema<AttemptI> = new mongoose.Schema({
     userId:{
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
     },
     questionId:{

@@ -1,11 +1,12 @@
 import type { Request, Response } from "express";
+import { Types } from "mongoose";
 import { Question, type questionI } from "../model/question.model.ts";
 import { Attempt } from "../model/attempt.model.ts";
 
 
 export const getStats = async (req: Request, res: Response) => {
     const user = req.user
-    const userId = user.id
+    const userId: Types.ObjectId = new Types.ObjectId(user.id as string)
 
     const difficultyTag = async ()=>{
         const tag = {
@@ -15,7 +16,7 @@ export const getStats = async (req: Request, res: Response) => {
         }
         const difficultyStats = await Question.aggregate([
             {
-                $match:{
+                $match: {
                     userId: userId
                 }
             },

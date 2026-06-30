@@ -1,8 +1,9 @@
+import { Types } from "mongoose";
 import { Question, type questionI } from "../model/question.model.ts";
 import type { Request, Response } from "express";
 
 interface data{
-    userId: string,
+    userId: Types.ObjectId,
     questionNo: number,
     name?: string,
     tag: "easy" | "medium" | "hard",
@@ -19,7 +20,7 @@ export const createQuestions = async (body: data) =>{
 export const getQuestions = async(req: Request, res: Response) =>{
 
     try{
-        const userId = req.user.id
+        const userId = new Types.ObjectId(req.user.id as string)
         const questions: questionI[] = await Question.find({userId})
 
         return res.status(200).json({msg: "Data Retrieved Successfully", questions})

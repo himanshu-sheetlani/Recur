@@ -1,7 +1,7 @@
-import mongoose, { Model, Schema } from "mongoose";
+import mongoose, { Model, Schema, Types } from "mongoose";
 
 export interface questionI{
-    userId: string,
+    userId: Types.ObjectId,
     questionNo: number,
     name?: string,
     tag: "easy" | "medium" | "hard",
@@ -10,7 +10,7 @@ export interface questionI{
 
 const questionSchema: Schema<questionI> = new mongoose.Schema({
     userId:{
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
     },
     questionNo:{
