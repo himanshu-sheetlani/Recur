@@ -56,7 +56,7 @@ export const getStats = async (req: Request, res: Response) => {
             return time[0].avgTime
         }
         catch(e){
-            return (e)
+            return res.json({msg: e})
         }
     }
 
@@ -71,7 +71,7 @@ export const getStats = async (req: Request, res: Response) => {
             return recentQuestions
         }
         catch(e){
-            return e
+            return res.json({msg: e})
         }
     }
     
@@ -84,6 +84,6 @@ export const getStats = async (req: Request, res: Response) => {
         res.status(200).json({msg: "Successful", tag, totalQuestion, avgTime, recentAttempt})
     }
     catch(e){
-        res.status(400).json({msg: "Somthing went Wrong"})
+        return res.status(400).json({msg: "Somthing went Wrong"})
     }
 }

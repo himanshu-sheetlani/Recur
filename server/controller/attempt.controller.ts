@@ -44,7 +44,7 @@ export const createAttempt = async (req: Request, res: Response) =>{
 
     }
     catch(e){
-        res.status(400).json({msg: e})
+        return res.status(400).json({msg: e})
     }
 }
 

@@ -22,6 +22,6 @@ export const checkAuth = (req: Request, res: Response) =>{
         })
     }
     catch(e){
-        res.json(e)
+        return res.json({msg: e})
     }
 }

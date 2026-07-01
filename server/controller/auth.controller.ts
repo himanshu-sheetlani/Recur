@@ -42,7 +42,7 @@ export const login = async (req: Request, res: Response)=>{
         })
     }
     catch(e){
-        res.status(400).json({"msg": e})
+        return res.status(400).json({msg: e})
     }
 
 }
@@ -81,7 +81,7 @@ export const signup = async (req: Request, res: Response) =>{
         })
     } 
     catch(e){
-        res.status(400).json({"msg": e})
+        return res.status(400).json({"msg": e})
     }
 }
 
