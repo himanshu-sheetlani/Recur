@@ -20,7 +20,9 @@ const Recent = ({ data }: { data: stats }) => {
         <div className="h-1/2 w-full mt-5 bg-[#1e1f25] p-5 rounded-3xl">
             <div className="flex p-5 justify-between">
                 <h1 className="text-2xl font-bold">Recently Solved Questions</h1>
-                <Button variant="default" className="text-sm p-3">View All <ArrowRight/> </Button>
+                <Link to="/history" className="cursor-pointer">
+                    <Button variant="default" className="text-sm p-3">View All <ArrowRight/> </Button>
+                </Link>
             </div>
             {recentAttempt.map((list)=>(
                 <div key={list._id} className="flex justify-between items-center p-5 m-2 bg-[#2b2c35] rounded-xl">
