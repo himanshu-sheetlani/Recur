@@ -6,6 +6,7 @@ import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { Toaster } from "react-hot-toast";
+import History from "./pages/History";
 
 function App() {
   return (
@@ -20,6 +21,11 @@ function App() {
             <Dashboard/>
           </ProtectedRoute>
         }/>
+        <Route path="/history" element={
+          <ProtectedRoute>
+            <History/>
+          </ProtectedRoute>
+        } />
       </Routes>
     </BrowserRouter>
   );
