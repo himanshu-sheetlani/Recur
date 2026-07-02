@@ -1,6 +1,6 @@
 import PixelBlast from "../components/PixelBlast";
 import Hero from "../components/landing/Hero";
-import Navbar from "../components/Navbar";
+import Layout from "../components/Layout";
 
 
 const Landing = () => {
@@ -22,7 +22,7 @@ const Landing = () => {
             edgeFade={0.16}
         />
       </div>
-      <Navbar/>
+      <Layout/>
       <div className="text-white text-4xl font-bold z-20 relative">
         <Hero/>
       </div>

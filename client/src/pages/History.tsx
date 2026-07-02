@@ -4,7 +4,7 @@ import toast from "react-hot-toast"
 import { Link } from "react-router-dom"
 import { Button } from "../components/ui/button"
 import { Badge } from "../components/ui/badge"
-import Navbar from "../components/Navbar"
+import Layout from "../components/Layout"
 import { ExternalLink, MoveLeft, X } from "lucide-react"
 
 import type { questions } from "../types/questions"
@@ -61,7 +61,7 @@ const History = () => {
     const attempts = attempt?.response
   return (
       <div className="bg-[#16171d] text-white p-15 max-w-screen min-h-screen flex flex-col items-center">
-        <Navbar/>
+        <Layout/>
         <div className="w-full h-fit bg-[#1e1f25] mt-10 rounded-3xl p-10">
             <Link to="/dashboard">
                 <Badge className="bg-[#1e1f25] p-3 m-3 mt-0 mb-5 border-white border"><MoveLeft /> Back</Badge>
