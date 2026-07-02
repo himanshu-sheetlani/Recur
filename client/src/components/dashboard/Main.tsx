@@ -5,10 +5,10 @@ import type { stats } from '../../types/stats';
 const Main = ({ data }: { data: stats }) => {
   return (
     <>
-    <div className="h-1/2 w-full mb-5 bg-[#1e1f25] rounded-3xl flex">
-          <div className="p-3 w-2/5 m-5 mr-0">
+    <div className="h-1/2 w-full mb-5  text-white bg-[#1e1f25] rounded-3xl flex">
+          <div className="bg-[#2b2c35] rounded-xl p-3 px-10 w-2/5 m-5 my-10 flex justify-center items-center">
             <PieChart
-            className="bg-[#2b2c35] rounded-xl"
+            className='text-white'
             colors={['#a3e961', '#eebc51', '#ff6161']}
             series={[
               {
@@ -28,9 +28,14 @@ const Main = ({ data }: { data: stats }) => {
               }
             ]
           }
-          hideLegend = {true}
+          slotProps={{ 
+            legend: { 
+              sx: {
+                color: "#ffffff"
+              }
+            }, 
+          }}
           />
-          
           </div>
           <div className=" w-1/5 m-5 mx-0 p-2 flex flex-col">
             <div className="flex justify-center items-center flex-col rounded-lg h-1/3 m-2 mx-0 bg-[#2b2c35]">
