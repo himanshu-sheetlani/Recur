@@ -8,13 +8,13 @@ import { useNavigate } from "react-router-dom";
 import type { APIRes } from "../types/stats";
 import { api } from "../lib/axios";
 import { LogOut, History, Plus } from "lucide-react";
-import type {Dispatch, SetStateAction} from 'react'
+import type { Dispatch, SetStateAction } from "react";
 
 interface NavbarProps {
   setPopup: Dispatch<SetStateAction<boolean>>;
 }
 
-const Navbar = ({setPopup}: NavbarProps) => {
+const Navbar = ({ setPopup }: NavbarProps) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(() => {
     return localStorage.getItem("isLoggedIn") === "true";
   });
