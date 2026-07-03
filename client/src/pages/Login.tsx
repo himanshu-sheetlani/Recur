@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 
 import type { ChangeEvent, FormEvent } from "react";
 import type { AxiosResponse } from "axios";
+import type { APIRes } from "../types/stats";
 
 const Login = () => {
   const navigate = useNavigate()
@@ -14,10 +15,6 @@ const Login = () => {
     username: string;
     password: string;
   }
-  interface APIRes {
-    msg: string;
-    username: string;
-  } 
 
   const [form, setForm] = useState<formType>({
     username: "",
@@ -45,7 +42,6 @@ const Login = () => {
       navigate('/dashboard')
     } catch (e) {
       const err=axiosError(e)
-      // setMsg(err);
       toast.error(err);
       console.log(e);
     }

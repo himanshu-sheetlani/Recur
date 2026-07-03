@@ -2,10 +2,11 @@ import PixelBlast from "../components/PixelBlast";
 import { useState } from "react";
 import { api, axiosError } from "../lib/axios";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 import type { ChangeEvent, FormEvent } from "react";
 import type { AxiosResponse } from "axios";
-import { toast } from "react-hot-toast";
+import type { APIRes } from "../types/stats";
 
 const Signup = () => {
   const navigate = useNavigate()
@@ -13,10 +14,6 @@ const Signup = () => {
     username: string;
     email: string;
     password: string;
-  }
-  interface APIRes {
-    msg: string;
-    username: string;
   }
 
   const [form, setForm] = useState<formType>({
