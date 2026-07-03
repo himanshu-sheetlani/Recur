@@ -6,8 +6,8 @@ import { Types } from "mongoose";
 
 
 export const createAttempt = async (req: Request, res: Response) =>{
+    const userId = new Types.ObjectId(req.user.id as string)
     const {
-    userId,
     questionNo,
     name,
     tag,
@@ -40,7 +40,7 @@ export const createAttempt = async (req: Request, res: Response) =>{
         }
 
         await Attempt.create(data);
-        res.status(201).json({msg: "Record Created"})
+        res.status(201).json({msg: "Attempt Created Successfully"})
 
     }
     catch(e){
