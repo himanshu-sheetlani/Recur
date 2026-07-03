@@ -1,10 +1,11 @@
 import { api } from "../lib/axios";
-
+import { axiosError } from "../lib/axios";
 import { useEffect, useState } from "react";
 import type { AxiosResponse } from "axios";
 import Layout from "../components/Layout";
 import Loading from "../components/Loading";
 import Main from "../components/dashboard/Main";
+import toast from "react-hot-toast";
 
 import type { stats } from "../types/stats";
 import SideBar from "../components/dashboard/SideBar";
@@ -19,6 +20,8 @@ const Dashboard = () => {
           await api.get("/dashboard/stats");
         setData(response.data);
       } catch (e) {
+        const err = axiosError(e);
+        toast.error(err);
         console.log(e);
       }
     };

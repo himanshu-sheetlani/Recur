@@ -84,9 +84,7 @@ const History = () => {
                         </Link>
                     </div>
                     <div className="w-1/6 text-center">
-                        <button onClick={() => handleClick(list._id)}>
-                            <Button variant="secondary">See attempts</Button>
-                        </button>
+                        <Button onClick={() => handleClick(list._id)} variant="secondary">See attempts</Button>
                     </div>
                 </div>
                 </div>
