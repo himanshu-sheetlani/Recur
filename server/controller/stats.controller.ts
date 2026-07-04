@@ -53,7 +53,7 @@ export const getStats = async (req: Request, res: Response) => {
                     }
                 }
             ])
-            return time[0].avgTime
+            return !time || time.length == 0 ? 0 : time[0].avgTime
         }
         catch(e){
             return res.json({msg: e})

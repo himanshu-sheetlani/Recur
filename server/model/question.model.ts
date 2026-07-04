@@ -16,7 +16,6 @@ const questionSchema: Schema<questionI> = new mongoose.Schema({
     questionNo:{
         type: Number,
         required: true,
-        unique: true,
     },
     name:{
         type: String,

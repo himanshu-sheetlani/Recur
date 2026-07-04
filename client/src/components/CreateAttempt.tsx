@@ -25,6 +25,7 @@ import type { APIRes } from "../types/stats";
 interface NavbarProps {
   setPopup: Dispatch<SetStateAction<boolean>>;
   popup: boolean;
+  fetchData: () => void;
 }
 
 interface attempts {
@@ -36,7 +37,7 @@ interface attempts {
   hint: boolean;
 }
 
-const CreateAttempt = ({ setPopup, popup }: NavbarProps) => {
+const CreateAttempt = ({ setPopup, popup, fetchData }: NavbarProps) => {
   const [attemptData, setAttemptData] = useState<attempts>({
     questionNumber: 0,
     questionName: "",
@@ -63,6 +64,7 @@ const CreateAttempt = ({ setPopup, popup }: NavbarProps) => {
         record,
       );
       toast.success(response.data.msg);
+      fetchData()
     } catch (e) {
       const err = axiosError(e);
       toast.error(err);
@@ -86,13 +88,13 @@ const CreateAttempt = ({ setPopup, popup }: NavbarProps) => {
     }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!isFirstStepValid(attemptData)) {
       toast.error("Please fill all required fields");
       return;
     }
 
-    callAPI(attemptData);
+    await callAPI(attemptData);
     setPopup(false);
     setStepperKey((k) => k + 1);
     setAttemptData({

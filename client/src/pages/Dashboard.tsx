@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 import { api } from "../lib/axios";
 import { axiosError } from "../lib/axios";
 import { useEffect, useState } from "react";
@@ -13,33 +14,33 @@ import SideBar from "../components/dashboard/SideBar";
 const Dashboard = () => {
   const [data, setData] = useState<stats | null>(null);
 
+  const fetchData = async () => {
+    try {
+      const response: AxiosResponse<stats> = await api.get("/dashboard/stats");
+      setData(response.data);
+    } catch (e) {
+      const err = axiosError(e);
+      toast.error(err);
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response: AxiosResponse<stats> =
-          await api.get("/dashboard/stats");
-        setData(response.data);
-      } catch (e) {
-        const err = axiosError(e);
-        toast.error(err);
-        console.log(e);
-      }
-    };
     fetchData();
   }, []);
-
+  
   if (!data) {
     return <Loading />;
   }
-
+  
   return (
     <>
-      <Layout />
+      <Layout fetchData={fetchData}/>
       <div className="bg-[#16171d] text-white max-w-screen min-h-screen flex justify-center items-center flex-wrap px-15 pt-25">
-        <div className="text-center w-3/4 h-full flex justify-center flex-col p-10 pt-0 pl-0 pb-0">
+        <div className="text-center w-3/4 h-screen flex justify-center flex-col p-10 pt-0 pl-0 pb-0">
           <Main data={data} />
         </div>
-        <SideBar />
+        <SideBar/>
         {/* <h1 className="text-4xl font-bold m-10">
             Dashboard
         </h1>
