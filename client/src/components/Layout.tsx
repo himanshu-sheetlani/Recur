@@ -1,8 +1,12 @@
+import React, { useState } from "react";
 import Navbar from "./Navbar";
 import CreateAttempt from "./CreateAttempt";
-import { useState } from "react";
 
-const Layout = ({fetchData}) => {
+type LayoutProps = {
+  fetchData: () => void | Promise<void>;
+};
+
+const Layout: React.FC<LayoutProps> = ({ fetchData }) => {
   const [popup, setPopup] = useState(false);
   return (
     <div className="flex justify-center text-white">
