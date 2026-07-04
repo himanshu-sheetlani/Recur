@@ -25,7 +25,7 @@ import type { APIRes } from "../types/stats";
 interface NavbarProps {
   setPopup: Dispatch<SetStateAction<boolean>>;
   popup: boolean;
-  fetchData: () => void;
+  fetchData?: () => void;
 }
 
 interface attempts {
@@ -64,7 +64,7 @@ const CreateAttempt = ({ setPopup, popup, fetchData }: NavbarProps) => {
         record,
       );
       toast.success(response.data.msg);
-      fetchData()
+      fetchData?.()
     } catch (e) {
       const err = axiosError(e);
       toast.error(err);
@@ -125,19 +125,20 @@ const CreateAttempt = ({ setPopup, popup, fetchData }: NavbarProps) => {
 
   return (
     <div
-      className={`h-screen w-screen bg-[#1e1f25]/20 backdrop-blur-2xl z-50 top-0 right-0 flex justify-center items-center ${popup ? "fixed" : "hidden"}`}
+      className={`fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex justify-center items-center p-4 ${popup ? "block" : "hidden"}`}
     >
       <button
         onClick={() => {
           setPopup(false);
         }}
+        className="absolute top-4 right-4 z-10"
       >
-        <div className="w-10 h-10 bg-white rounded-full absolute top-15 right-15 flex justify-center items-center   ">
-          <X className="text-black" />
+        <div className="w-8 h-8 md:w-10 md:h-10 bg-white hover:bg-gray-200 transition rounded-full flex justify-center items-center">
+          <X className="text-black h-4 w-4 md:h-5 md:w-5" />
         </div>
       </button>
 
-      <div className=" w-250 h-150 bg-[#1e1f25] rounded-3xl flex justify-center p-10 px-35">
+      <div className="w-full max-w-2xl bg-[#1e1f25] border border-white/10 rounded-3xl flex flex-col justify-between p-6 md:p-10 min-h-[450px]">
         <Stepper
           onStepChange={() => {}}
           onFinalStepCompleted={handleSubmit}

@@ -34,16 +34,14 @@ const Dashboard = () => {
   }
   
   return (
-    <div className="bg-[#16171d] text-white max-w-screen min-h-screen flex justify-center items-center flex-wrap px-15 pt-25">
+    <div className="bg-[#16171d] text-white min-h-screen flex flex-col lg:flex-row justify-center items-start gap-8 px-4 md:px-10 lg:px-15 pt-28 pb-10 max-w-full">
       <Layout fetchData={fetchData}/>
-        <div className="text-center w-3/4 min-h-screen flex justify-center flex-col p-10 pt-0 pl-0 pb-0">
-          <Main data={data} />
-        </div>
+      <div className="w-full lg:w-[70%] xl:w-3/4 flex flex-col">
+        <Main data={data} />
+      </div>
+      <div className="w-full lg:w-[30%] xl:w-1/4">
         <SideBar/>
-        {/* <h1 className="text-4xl font-bold m-10">
-            Dashboard
-        </h1>
-        <Button className="p-5 m-5 text-lg" variant='destructive' onClick={logout}>Logout</Button> */}
+      </div>
     </div>
   );
 };

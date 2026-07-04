@@ -17,7 +17,7 @@ export default function Stepper({
   backButtonText = 'Back',
   nextButtonText = 'Continue',
   disableStepIndicators = false,
-  renderStepIndicator,
+  renderStepIndicator = undefined,
   ...rest
 }) {
   const [currentStep, setCurrentStep] = useState(initialStep);

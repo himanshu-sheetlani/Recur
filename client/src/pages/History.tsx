@@ -16,17 +16,18 @@ const History = () => {
     const [display, setDisplay] = useState(false)
     const [attempt, setAttempt] = useState<attempts | null>(null)
 
-    useEffect(()=>{
-        const fetchData = async()=>{
-            try{
-                const response: AxiosResponse<questions> = await api.get("/dashboard/question")
-                setData(response.data)
-            }
-            catch(e){
-                const err=axiosError(e)
-                toast.error(err);
-            }
+    const fetchData = async()=>{
+        try{
+            const response: AxiosResponse<questions> = await api.get("/dashboard/question")
+            setData(response.data)
         }
+        catch(e){
+            const err=axiosError(e)
+            toast.error(err);
+        }
+    }
+
+    useEffect(()=>{
         fetchData()
     }, [])
 
@@ -60,9 +61,9 @@ const History = () => {
     const question = data?.questions
     const attempts = attempt?.response
   return (
-      <div className="bg-[#16171d] text-white p-15 max-w-screen min-h-screen flex flex-col items-center">
-        <Layout/>
-        <div className="w-full h-fit bg-[#1e1f25] mt-10 rounded-3xl p-10">
+      <div className="bg-[#16171d] text-white px-4 py-8 md:p-10 lg:p-15 pt-28 max-w-full min-h-screen flex flex-col items-center">
+        <Layout fetchData={fetchData}/>
+        <div className="w-full max-w-5xl bg-[#1e1f25] mt-6 rounded-3xl p-4 md:p-10">
             <Link to="/dashboard">
                 <Badge className="bg-[#1e1f25] p-3 m-3 mt-0 mb-5 border-white border"><MoveLeft /> Back</Badge>
             </Link>
@@ -77,48 +78,45 @@ const History = () => {
             ) : (
                 question?.map((list)=>(
                     <div key={list._id}>
-                        <div key={list._id} className="flex justify-between items-center p-5 m-2 my-4 bg-[#2b2c35] rounded-xl">
-                        <div className="flex flex-col items-start w-1/2">
-                            <h1 className="text-lg">{list.questionNo}. {list.name} </h1>
-
-                        </div>
-                        {/* <p className={`${list.hint ? "text-white": "text-gray-600" }`} >{list.hint ?"Hint Used":"No Hint"}</p> */}
-                        <div className="w-1/6 text-center">
-                            <Badge className={`border ${list.tag == "easy"? "bg-green-950 text-green-300 border-green-300": list.tag ==     "medium"? "bg-orange-900 text-orange-300 border border-orange-300": "bg-red-950 text-red-300 border-red-300"}   `}>{list.tag}</Badge>
-                        </div>
-                        <div className="w-1/6 text-center">
-                            <Link to={list.link}>
-                                <Button variant="secondary">Link <ExternalLink /></Button>
-                            </Link>
-                        </div>
-                        <div className="w-1/6 text-center">
-                            <Button onClick={() => handleClick(list._id)} variant="secondary">See attempts</Button>
+                        <div key={list._id} className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 md:p-5 m-2 my-4 bg-[#2b2c35] rounded-xl gap-3">
+                            <div className="flex flex-col items-start w-full sm:w-1/2">
+                                <h1 className="text-md md:text-lg font-medium">{list.questionNo}. {list.name} </h1>
+                            </div>
+                            <div className="flex items-center justify-between sm:justify-end w-full sm:w-1/2 gap-3 flex-wrap">
+                                <Badge className={`border ${list.tag == "easy"? "bg-green-950 text-green-300 border-green-300": list.tag == "medium"? "bg-orange-900 text-orange-300 border border-orange-300": "bg-red-950 text-red-300 border-red-300"}`}>{list.tag}</Badge>
+                                <Link to={list.link} target="_blank" rel="noopener noreferrer">
+                                    <Button variant="secondary" size="sm" className="flex items-center gap-1">Link <ExternalLink className="h-3 w-3" /></Button>
+                                </Link>
+                                <Button onClick={() => handleClick(list._id)} variant="secondary" size="sm">See attempts</Button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            )))}
+                )))}
         </div>
 
-        <div className={`w-screen h-screen bg-[#1e1f25]/5 top-0 backdrop-blur-2xl p-50 ${display? "absolute" : "hidden"}`}>
-            <button onClick={() => {setDisplay(false)}}>
-                <div className="w-10 h-10 bg-white rounded-full absolute top-15 right-15 flex justify-center items-center   ">
-                    <X className="text-black"/>
-                </div>
-            </button>
-            <div className="w-full h-full rounded-3xl bg-[#1e1f25] p-5">
-                {attempts?.map((list)=>(
-                    <div key={list._id}>
-                        <div key={list._id} className="flex justify-between items-center p-5 m-2 my-4 bg-[#2b2c35] rounded-xl">
-                        <div className="flex flex-col items-start w-1/2">
-                            <h1 className="text-lg">{formatTime(list.createdAt)} </h1>
-
+        <div className={`fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex justify-center items-center p-4 ${display? "block" : "hidden"}`}>
+            <div className="w-full max-w-2xl bg-[#1e1f25] border border-white/10 rounded-3xl p-6 md:p-8 relative max-h-[85vh] overflow-y-auto">
+                <button onClick={() => {setDisplay(false)}} className="absolute top-4 right-4 z-10">
+                    <div className="w-8 h-8 md:w-10 md:h-10 bg-white hover:bg-gray-200 transition rounded-full flex justify-center items-center">
+                        <X className="text-black h-4 w-4 md:h-5 md:w-5" />
+                    </div>
+                </button>
+                <h2 className="text-xl font-bold mb-6 text-white">Attempt History</h2>
+                <div className="space-y-3">
+                    {attempts?.map((list)=>(
+                        <div key={list._id} className="flex justify-between items-center p-4 bg-[#2b2c35] rounded-xl text-sm md:text-base gap-3">
+                            <div className="flex flex-col items-start">
+                                <span className="text-gray-300 font-medium">{formatTime(list.createdAt)}</span>
+                            </div>
+                            <div className="flex items-center gap-4">
+                                <span className={`text-sm ${list.hint ? "text-yellow-400": "text-gray-500" }`}>
+                                    {list.hint ? "Hint Used" : "No Hint"}
+                                </span>
+                                <span className="font-mono text-gray-300">{Math.floor(list.time / 60)}m {Math.floor(list.time % 60)}s</span>
+                            </div>
                         </div>
-                        <p className={`${list.hint ? "text-white": "text-gray-600" }`} >{list.hint ?"Hint Used":"No Hint"}</p> 
-                        <p>{Math.floor(list.time / 60)}m {Math.floor(list.time % 60)}s</p> 
-                        
-                    </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
             </div>
         </div>
 

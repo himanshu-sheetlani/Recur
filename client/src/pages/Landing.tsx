@@ -5,7 +5,7 @@ import Layout from "../components/Layout";
 
 const Landing = () => {
   return (
-    <div className="bg-[#16171d] max-w-screen h-screen flex justify-center items-center text-center flex-col relative">
+    <div className="bg-[#16171d] min-h-screen w-full flex justify-center items-center text-center flex-col relative py-20 px-4">
       <div className="w-screen h-full absolute z-10">
         <PixelBlast
             variant="square"

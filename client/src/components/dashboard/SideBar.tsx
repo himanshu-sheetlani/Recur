@@ -5,8 +5,8 @@ import { Calendar } from "../ui/calendar";
 const SideBar = () => {
     const [date, setDate] = useState<Date | undefined>(new Date())
     return (
-        <div className="w-1/4 h-screen bg-[#1e1f25] rounded-3xl p-10">
-              <div>
+        <div className="w-full bg-[#1e1f25] rounded-3xl p-6 md:p-10 flex flex-col items-center">
+              <div className="w-full max-w-sm flex justify-center">
                   <Calendar
                     mode="single"
                     selected={date}

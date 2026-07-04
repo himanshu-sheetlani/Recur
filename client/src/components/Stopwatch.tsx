@@ -10,6 +10,7 @@ interface attempts {
   questionLink: string;
   tag: "easy" | "medium" | "hard";
   time: number;
+  hint: boolean;
 }
 
 interface attemptParams {

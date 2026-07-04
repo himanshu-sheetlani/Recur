@@ -67,7 +67,7 @@ const Login = () => {
   }
 
   return (
-    <div className="bg-[#16171d] text-white max-w-screen h-screen flex justify-center items-center text-center flex-col relative p-10">
+    <div className="bg-[#16171d] text-white min-h-screen w-full flex justify-center items-center text-center flex-col relative p-4 py-12">
       <div className="w-screen h-full absolute z-10">
         <PixelBlast
           variant="square"
@@ -84,10 +84,10 @@ const Login = () => {
           edgeFade={0.16}
         />
       </div>
-      <div className="flex justify-center absolute items-center z-50 p-2 backdrop-blur-sm border border-white/25 bg-[# 74741a] rounded-2xl shadow-[0_0_20px_rgba(59,130,246,0.25)] w-150">
+      <div className="flex justify-center items-center z-50 p-6 md:p-10 backdrop-blur-sm border border-white/25 bg-[#7474741a] rounded-2xl shadow-[0_0_20px_rgba(59,130,246,0.25)] w-[92%] max-w-[450px]">
         <form
           onSubmit={handleSubmit}
-          className="flex flex-col gap-5 py-10 w-100"
+          className="flex flex-col gap-5 w-full"
         >
           <h2 className="text-3xl font-semibold text-white text-center tracking-wide">
             Login to your Account
