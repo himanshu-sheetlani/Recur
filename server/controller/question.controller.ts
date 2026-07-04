@@ -23,6 +23,7 @@ export const getQuestions = async(req: Request, res: Response) =>{
     try{
         const userId = new Types.ObjectId(req.user.id as string)
         const questions: questionI[] = await Question.find({userId})
+        .sort({ questionNo: 1 })
         return res.status(200).json({msg: "Data Retrieved Successfully", questions})
     }
     catch(e){
