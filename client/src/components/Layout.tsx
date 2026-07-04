@@ -9,7 +9,7 @@ type LayoutProps = {
 const Layout: React.FC<LayoutProps> = ({ fetchData }) => {
   const [popup, setPopup] = useState(false);
   return (
-    <div className="flex justify-center text-white">
+    <div className="flex justify-center text-white absolute">
       <Navbar setPopup={setPopup} />
       <CreateAttempt popup={popup} setPopup={setPopup} fetchData={fetchData}/>
     </div>

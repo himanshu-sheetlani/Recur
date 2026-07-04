@@ -151,6 +151,7 @@ const CreateAttempt = ({ setPopup, popup, fetchData }: NavbarProps) => {
             </label>
             <Input
               placeholder="Enter Question Number"
+              type="number"
               onChange={handleChange}
               name="questionNumber"
               className="qNo mb-5"
@@ -162,6 +163,7 @@ const CreateAttempt = ({ setPopup, popup, fetchData }: NavbarProps) => {
             </label>
             <Input
               placeholder="Enter Question Name"
+              type="text"
               value={attemptData.questionName}
               onChange={handleChange}
               name="questionName"
@@ -174,6 +176,7 @@ const CreateAttempt = ({ setPopup, popup, fetchData }: NavbarProps) => {
             </label>
             <Input
               placeholder="Enter Question Link"
+              type="text"
               value={attemptData.questionLink}
               onChange={handleChange}
               name="questionLink"
