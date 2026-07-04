@@ -16,7 +16,9 @@ interface attemptParams {
   setAttemptData: Dispatch<SetStateAction<attempts>>;
 }
 
-export default function Stopwatch({setAttemptData}: attemptParams): React.JSX.Element {
+export default function Stopwatch({
+  setAttemptData,
+}: attemptParams): React.JSX.Element {
   const [time, setTime] = useState<number>(0);
   const [isRunning, setIsRunning] = useState<boolean>(false);
 
@@ -53,7 +55,7 @@ export default function Stopwatch({setAttemptData}: attemptParams): React.JSX.El
         [name]: value,
       }));
     };
-    handleChange('time', Math.floor((time / 1000) % 60))
+    handleChange("time", Math.floor((time / 1000) % 60));
   };
 
   const formatTime = (totalMs: number): string => {
@@ -66,18 +68,33 @@ export default function Stopwatch({setAttemptData}: attemptParams): React.JSX.El
   };
 
   return (
-    <div className="text-center">
-      <p className="inline">
-        <Clock />
-        Timer
-      </p>
-      <h1>{formatTime(time)}</h1>
+    <div className="w-full max-w-sm rounded-2xl p-6 shadow-lg ">
+      <div className="flex items-center justify-center gap-2 text-muted-foreground">
+        <Clock className="h-5 w-5" />
+        <span className="text-sm font-medium uppercase">
+          Stopwatch
+        </span>
+      </div>
 
-      <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
-        <Button onClick={handleStartPause}>
+      <div className="mt-6 text-center">
+        <h1 className="font-mono text-5xl font-bold tracking-wider">
+          {formatTime(time)}
+        </h1>
+      </div>
+
+      <div className="mt-8 flex justify-center gap-3">
+        <Button size="lg" onClick={handleStartPause} className="min-w-28">
           {isRunning ? "Stop" : time == 0 ? "Start" : "Resume"}
         </Button>
-        <Button onClick={handleReset}>Reset</Button>
+
+        <Button
+          size="lg"
+          variant="secondary"
+          onClick={handleReset}
+          className="min-w-28"
+        >
+          Reset
+        </Button>
       </div>
     </div>
   );

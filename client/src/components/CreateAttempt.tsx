@@ -198,7 +198,9 @@ const CreateAttempt = ({ setPopup, popup, fetchData }: NavbarProps) => {
             </Select>
           </Step>
           <Step>
-            <Stopwatch setAttemptData={setAttemptData} />
+            <div className="h-fit">
+              <Stopwatch setAttemptData={setAttemptData} />
+            </div>
           </Step>
           <Step>
             <label
