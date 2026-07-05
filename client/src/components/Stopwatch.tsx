@@ -24,14 +24,20 @@ export default function Stopwatch({
   const [isRunning, setIsRunning] = useState<boolean>(false);
 
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const startTimeRef = useRef<number>(0);
+  const accumulatedTimeRef = useRef<number>(0);
 
   useEffect(() => {
     if (isRunning) {
+      startTimeRef.current = Date.now();
+      
       timerRef.current = setInterval(() => {
-        setTime((prevTime) => prevTime + 10);
+        const elapsed = Date.now() - startTimeRef.current + accumulatedTimeRef.current;
+        setTime(elapsed);
       }, 10);
-    } else if (timerRef.current) {
-      clearInterval(timerRef.current);
+    } else {
+      if (timerRef.current) clearInterval(timerRef.current);
+      accumulatedTimeRef.current = time;
     }
 
     return () => {
@@ -39,24 +45,23 @@ export default function Stopwatch({
     };
   }, [isRunning]);
 
+  useEffect(() => {
+    const totalSeconds = Math.floor(time / 1000);
+    setAttemptData((prev) => ({
+      ...prev,
+      time: totalSeconds,
+    }));
+  }, [time, setAttemptData]);
+
   const handleStartPause = (): void => {
     setIsRunning((prev) => !prev);
-    handleGetTime();
   };
 
   const handleReset = (): void => {
     setIsRunning(false);
     setTime(0);
-  };
-
-  const handleGetTime = (): void => {
-    const handleChange = (name: string, value: number) => {
-      setAttemptData((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
-    };
-    handleChange("time", Math.floor((time / 1000) % 60));
+    startTimeRef.current = 0;
+    accumulatedTimeRef.current = 0;
   };
 
   const formatTime = (totalMs: number): string => {
@@ -85,7 +90,7 @@ export default function Stopwatch({
 
       <div className="mt-8 flex justify-center gap-3">
         <Button size="lg" onClick={handleStartPause} className="min-w-28">
-          {isRunning ? "Stop" : time == 0 ? "Start" : "Resume"}
+          {isRunning ? "Stop" : time === 0 ? "Start" : "Resume"}
         </Button>
 
         <Button
