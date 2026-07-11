@@ -6,6 +6,7 @@ import { Button } from "../components/ui/button"
 import { Badge } from "../components/ui/badge"
 import Layout from "../components/Layout"
 import { ExternalLink, MoveLeft, X } from "lucide-react"
+import LogoLoadingScreen from "../components/Loading"
 
 import type { questions } from "../types/questions"
 import type { AxiosResponse } from "axios"
@@ -30,7 +31,7 @@ const History = () => {
     useEffect(()=>{
         fetchData()
     }, [])
-
+    if (data === null) return <LogoLoadingScreen />;
     const handleClick = async(id: string) =>{
         setDisplay(true)
         try{
@@ -42,7 +43,6 @@ const History = () => {
             toast.error(err);
         }
     }
-
     const formatTime = (isoString: string) => {
         try {
             return new Date(isoString).toLocaleDateString('en-US', {
@@ -96,7 +96,7 @@ const History = () => {
 
         <div className={`fixed inset-0 bg-black/60 backdrop-blur-md z-50 flex justify-center items-center p-4 ${display? "block" : "hidden"}`}>
             <div className="w-full max-w-2xl bg-[#1e1f25] border border-white/10 rounded-3xl p-6 md:p-8 relative max-h-[85vh] overflow-y-auto">
-                <button onClick={() => {setDisplay(false)}} className="absolute top-4 right-4 z-10">
+                <button onClick={() => {setDisplay(false); setAttempt(null)}} className="absolute top-4 right-4 z-10">
                     <div className="w-8 h-8 md:w-10 md:h-10 bg-white hover:bg-gray-200 transition rounded-full flex justify-center items-center">
                         <X className="text-black h-4 w-4 md:h-5 md:w-5" />
                     </div>
