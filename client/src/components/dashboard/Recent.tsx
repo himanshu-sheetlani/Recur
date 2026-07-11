@@ -41,9 +41,13 @@ const Recent = ({ data }: { data: stats }) => {
                         <div className="flex items-center justify-between sm:justify-end w-full sm:w-auto gap-4">
                             <p className={`text-sm ${list.hint ? "text-yellow-400": "text-gray-500" }`} >{list.hint ?"Hint Used":"No Hint"}</p>
                             <Badge className={`border ${list.questionId.tag == "easy"? "bg-green-950 text-green-300 border-green-300": list.questionId.tag == "medium"? "bg-orange-900 text-orange-300 border border-orange-300": "bg-red-950 text-red-300 border-red-300"}`}>{list.questionId.tag}</Badge>
-                            <Link to={list.questionId.link} target="_blank" rel="noopener noreferrer">
+                            <a
+                                href={/^(https?:)?\/\//i.test(list.questionId.link) ? list.questionId.link : `https://${list.questionId.link}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
                                 <Button variant="secondary" size="sm">Link</Button>
-                            </Link>
+                            </a>
                         </div>
                     </div>
                 )))}

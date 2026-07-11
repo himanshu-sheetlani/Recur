@@ -58,7 +58,7 @@ const History = () => {
         }
     };
 
-    const question = data?.questions
+    const question = data.questions
     const attempts = attempt?.response
   return (
       <div className="bg-[#16171d] text-white px-4 py-8 md:p-10 lg:p-15 pt-28 max-w-full min-h-screen flex flex-col items-center">
@@ -84,9 +84,13 @@ const History = () => {
                             </div>
                             <div className="flex items-center justify-between sm:justify-end w-full sm:w-1/2 gap-3 flex-wrap">
                                 <Badge className={`border ${list.tag == "easy"? "bg-green-950 text-green-300 border-green-300": list.tag == "medium"? "bg-orange-900 text-orange-300 border border-orange-300": "bg-red-950 text-red-300 border-red-300"}`}>{list.tag}</Badge>
-                                <Link to={list.link} target="_blank" rel="noopener noreferrer">
+                                <a
+                                    href={/^(https?:)?\/\//i.test(list.link) ? list.link : `https://${list.link}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
                                     <Button variant="secondary" size="sm" className="flex items-center gap-1">Link <ExternalLink className="h-3 w-3" /></Button>
-                                </Link>
+                                </a>
                                 <Button onClick={() => handleClick(list._id)} variant="secondary" size="sm">See attempts</Button>
                             </div>
                         </div>
