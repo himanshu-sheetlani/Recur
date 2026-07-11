@@ -18,7 +18,7 @@ app.use(cors({
   credentials: true
 }));
 app.use(cookieParser());
-// app.use(limiter)
+app.use(limiter)
 
 import healthRouter from "./routes/health.route.ts"
 import authRouter from "./routes/auth.route.ts"
