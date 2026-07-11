@@ -56,7 +56,7 @@ export const getStats = async (req: Request, res: Response) => {
             return !time || time.length == 0 ? 0 : time[0].avgTime
         }
         catch(e){
-            return res.json({msg: e})
+            return {msg: "Fail to fetch average time"}
         }
     }
 
@@ -71,7 +71,7 @@ export const getStats = async (req: Request, res: Response) => {
             return recentQuestions
         }
         catch(e){
-            return res.json({msg: e})
+            return {msg: "Fail to fetch recent attempts"}
         }
     }
     
@@ -81,7 +81,7 @@ export const getStats = async (req: Request, res: Response) => {
         const avgTime = await avgTimeTaken()
         const recentAttempt = await recent()
         
-        res.status(200).json({msg: "Successful", tag, totalQuestion, avgTime, recentAttempt})
+        return res.status(200).json({msg: "Successful", tag, totalQuestion, avgTime, recentAttempt})
     }
     catch(e){
         return res.status(400).json({msg: "Somthing went Wrong"})
