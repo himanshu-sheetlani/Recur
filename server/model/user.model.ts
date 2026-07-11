@@ -9,12 +9,12 @@ export interface UserI{
 const userSchema: Schema<UserI> = new mongoose.Schema({
     username:{
         type: String,
-        reqired: true,
+        required: true,
         unique: true,
     },
     email:{
         type: String,
-        reqired: true,
+        required: true,
         unique: true,
     },
     password:{
