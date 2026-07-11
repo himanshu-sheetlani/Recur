@@ -93,7 +93,9 @@ const Login = () => {
             Login to your Account
           </h2>
 
+          <label htmlFor="login-username" className="sr-only">Username</label>
           <input
+            id="login-username"
             type="text"
             name="username"
             value={form.username}
@@ -104,7 +106,9 @@ const Login = () => {
                focus:border-blue-400 focus:bg-white/10 transition"
           />
 
+          <label htmlFor="login-password" className="sr-only">Password</label>
           <input
+            id="login-password"
             type="password"
             name="password"
             value={form.password}

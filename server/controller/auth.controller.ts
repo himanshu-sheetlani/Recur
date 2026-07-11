@@ -67,6 +67,10 @@ export const signup = async (req: Request, res: Response) => {
     if (!emailRegex.test(email)) {
       return res.status(422).json({ msg: "Invalid Email Address" });
     }
+
+    if (password.length < 8) {
+      return res.status(422).json({ msg: "Password must be at least 8 characters long" });
+    }
     const checkUser = await User.findOne({ $or: [{ username }, { email }] });
 
     if (checkUser) {

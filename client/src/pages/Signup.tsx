@@ -63,6 +63,10 @@ const Signup = () => {
     if (!emailRegex.test(email)) {
       return setMsg("Invalid Email Address");
     }
+
+    if (password.length < 8) {
+      return setMsg("Password must be at least 8 characters long");
+    }
     callAPI(form);
   };
 
@@ -98,7 +102,9 @@ const Signup = () => {
             Create Account
           </h2>
 
+          <label htmlFor="signup-username" className="sr-only">Username</label>
           <input
+            id="signup-username"
             type="text"
             name="username"
             value={form.username}
@@ -109,7 +115,9 @@ const Signup = () => {
                focus:border-blue-400 focus:bg-white/10 transition"
           />
 
+          <label htmlFor="signup-email" className="sr-only">Email</label>
           <input
+            id="signup-email"
             type="email"
             name="email"
             value={form.email}
@@ -120,7 +128,9 @@ const Signup = () => {
                focus:border-blue-400 focus:bg-white/10 transition"
           />
 
+          <label htmlFor="signup-password" className="sr-only">Password</label>
           <input
+            id="signup-password"
             type="password"
             name="password"
             value={form.password}

@@ -152,6 +152,7 @@ const CreateAttempt = ({ setPopup, popup, fetchData }: NavbarProps) => {
               Question Number <span className="text-destructive">*</span>
             </label>
             <Input
+              id="qNo"
               placeholder="Enter Question Number"
               type="number"
               onChange={handleChange}
@@ -164,6 +165,7 @@ const CreateAttempt = ({ setPopup, popup, fetchData }: NavbarProps) => {
               Question Name <span className="text-destructive">*</span>
             </label>
             <Input
+              id="qName"
               placeholder="Enter Question Name"
               type="text"
               value={attemptData.questionName}
@@ -173,10 +175,11 @@ const CreateAttempt = ({ setPopup, popup, fetchData }: NavbarProps) => {
               required
             />
 
-            <label htmlFor="qName">
+            <label htmlFor="qLink">
               Question Link <span className="text-destructive">*</span>
             </label>
             <Input
+              id="qLink"
               placeholder="Enter Question Link"
               type="text"
               value={attemptData.questionLink}
@@ -190,7 +193,7 @@ const CreateAttempt = ({ setPopup, popup, fetchData }: NavbarProps) => {
               Select Difficulty <span className="text-destructive">*</span>
             </label>
             <Select onValueChange={(value) => handleSelectChange("tag", value)}>
-              <SelectTrigger className="w-full mb-5">
+              <SelectTrigger id="qTag" className="w-full mb-5">
                 <SelectValue placeholder="Difficulty" onChange={handleChange} />
               </SelectTrigger>
               <SelectContent>
