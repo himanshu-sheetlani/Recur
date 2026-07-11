@@ -23,6 +23,9 @@ export const login = async (req: Request, res: Response) => {
     if (!pass) {
       return res.status(401).json({ msg: "invalid password" });
     }
+    if (password.length < 8) {
+      return res.status(422).json({ msg: "Password must be at least 8 characters long" });
+    }
 
     const token = jwt.sign(
       {
