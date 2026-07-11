@@ -145,6 +145,7 @@ const CreateAttempt = ({ setPopup, popup, fetchData }: NavbarProps) => {
           backButtonText="Previous"
           nextButtonText="Next"
           key={stepperKey}
+          disableStepIndicators={true}
         >
           <Step>
             <label htmlFor="qNo">
