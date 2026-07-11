@@ -22,6 +22,6 @@ export const checkAuth = (req: Request, res: Response) =>{
         })
     }
     catch(e){
-        return res.json({msg: e})
+        return res.status(401).json({msg: "Invalid or expired token", error: e})
     }
 }
