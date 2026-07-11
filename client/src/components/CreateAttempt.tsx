@@ -138,7 +138,7 @@ const CreateAttempt = ({ setPopup, popup, fetchData }: NavbarProps) => {
         </div>
       </button>
 
-      <div className="w-full max-w-2xl bg-[#1e1f25] border border-white/10 rounded-3xl flex flex-col justify-between p-6 md:p-10 min-h-[450px]">
+      <div className="w-full max-w-2xl bg-[#1e1f25] border border-white/10 rounded-3xl flex flex-col justify-between p-6 md:p-10 h-150">
         <Stepper
           onStepChange={() => {}}
           onFinalStepCompleted={handleSubmit}
