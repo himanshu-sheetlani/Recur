@@ -43,7 +43,7 @@ const Dashboard = () => {
         <div className="bg-[#16171d] text-white min-h-screen flex flex-col justify-center items-center gap-8 px-4 md:px-10 lg:px-15 pt-28 pb-10 max-w-full">
           <Layout fetchData={fetchData} />
           <div className="max-w-md w-full bg-[#1c1d24]/60 backdrop-blur-md border border-[#2a2c38] rounded-2xl p-8 text-center shadow-2xl flex flex-col items-center gap-6 relative z-10">
-            <div className="w-16 h-16 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center text-red-400 animate-pulse">
+            <div className="w-16 h-16 rounded-full bg-[#1c1d24]/60 border flex items-center justify-center text-red-400 animate-pulse">
               <AlertCircle className="w-8 h-8" />
             </div>
             <div className="space-y-2">

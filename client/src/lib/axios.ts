@@ -10,7 +10,10 @@ const api = axios.create({
 
 const axiosError = (err:unknown): string =>{
     if (axios.isAxiosError(err)){
-        return err.response?.data?.msg || "Something went wrong"
+        if (typeof err.response?.data === "string") {
+            return err.response.data
+        }
+        return err.response?.data?.msg || err.response?.data || "Something went wrong... Try again later"
     }
     else{
         return "Unexpected error"
