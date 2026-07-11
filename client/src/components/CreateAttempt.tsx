@@ -64,7 +64,7 @@ const CreateAttempt = ({ setPopup, popup, fetchData }: NavbarProps) => {
         record,
       );
       toast.success(response.data.msg);
-      fetchData?.()
+      fetchData?.();
     } catch (e) {
       const err = axiosError(e);
       toast.error(err);
@@ -81,10 +81,10 @@ const CreateAttempt = ({ setPopup, popup, fetchData }: NavbarProps) => {
   };
 
   const handleCheckBox = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+    const { name, checked } = e.target;
     setAttemptData((prev) => ({
       ...prev,
-      [name]: value == "on" ? true : false,
+      [name]: checked,
     }));
   };
 
