@@ -39,9 +39,12 @@ export const login = async (req: Request, res: Response) => {
       },
     );
 
+    const isProduction = process.env.NODE_ENV === "production" || (process.env.CLIENT_URL && !process.env.CLIENT_URL.includes("localhost"));
     res.cookie("token", token, {
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24 * 7,
+      secure: !!isProduction,
+      sameSite: isProduction ? "none" : "lax",
     });
     return res.status(200).json({
       msg: "login Successfull",
@@ -92,9 +95,12 @@ export const signup = async (req: Request, res: Response) => {
       },
     );
 
+    const isProduction = process.env.NODE_ENV === "production" || (process.env.CLIENT_URL && !process.env.CLIENT_URL.includes("localhost"));
     res.cookie("token", token, {
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24 * 7,
+      secure: !!isProduction,
+      sameSite: isProduction ? "none" : "lax",
     });
 
     return res.status(201).json({
@@ -107,8 +113,11 @@ export const signup = async (req: Request, res: Response) => {
 };
 
 export const logout = (req: Request, res: Response) => {
+  const isProduction = process.env.NODE_ENV === "production" || (process.env.CLIENT_URL && !process.env.CLIENT_URL.includes("localhost"));
   res.clearCookie("token", {
     httpOnly: true,
+    secure: !!isProduction,
+    sameSite: isProduction ? "none" : "lax",
   });
   return res.status(200).json({ msg: "Logged out successfully" });
 };
