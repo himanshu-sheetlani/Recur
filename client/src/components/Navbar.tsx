@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import type { APIRes } from "../types/stats";
 import { api } from "../lib/axios";
-import { LogOut, History, Plus, Menu, X, Home } from "lucide-react";
+import { LogOut, History, Plus, Menu, X, Home, Loader2 } from "lucide-react";
 import type { Dispatch, SetStateAction } from "react";
 
 interface NavbarProps {
@@ -19,6 +19,7 @@ const Navbar = ({ setPopup }: NavbarProps) => {
     return localStorage.getItem("isLoggedIn") === "true";
   });
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [isLoggingOut, setIsLoggingOut] = useState<boolean>(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -47,6 +48,7 @@ const Navbar = ({ setPopup }: NavbarProps) => {
   }, []);
 
   const logout = async () => {
+    setIsLoggingOut(true);
     try {
       const response: AxiosResponse<APIRes> = await api.post("/auth/logout");
       toast.success(response.data.msg);
@@ -55,6 +57,8 @@ const Navbar = ({ setPopup }: NavbarProps) => {
       navigate("/login");
     } catch (e) {
       console.log(e);
+    } finally {
+      setIsLoggingOut(false);
     }
   };
 
@@ -93,9 +97,18 @@ const Navbar = ({ setPopup }: NavbarProps) => {
                 <span>History</span>
               </Button>
             </Link>
-            <Button variant="destructive" className="flex items-center gap-1.5 text-sm px-4 py-2" onClick={logout}>
-              <LogOut className="h-4 w-4" />
-              <span>Log out</span>
+            <Button 
+              variant="destructive" 
+              className="flex items-center gap-1.5 text-sm px-4 py-2 disabled:opacity-50" 
+              onClick={logout}
+              disabled={isLoggingOut}
+            >
+              {isLoggingOut ? (
+                <Loader2 className="h-4 w-4 animate-spin" />
+              ) : (
+                <LogOut className="h-4 w-4" />
+              )}
+              <span>{isLoggingOut ? "Logging out..." : "Log out"}</span>
             </Button>
           </div>
         ) : (
@@ -160,13 +173,19 @@ const Navbar = ({ setPopup }: NavbarProps) => {
               
               <button 
                 onClick={() => {
+                  if (isLoggingOut) return;
                   setIsMenuOpen(false);
                   logout();
                 }}
-                className="flex items-center gap-3 p-3 rounded-xl hover:bg-red-500/10 text-red-400 hover:text-red-300 transition-colors text-sm font-medium text-left cursor-pointer w-full"
+                disabled={isLoggingOut}
+                className="flex items-center gap-3 p-3 rounded-xl hover:bg-red-500/10 text-red-400 hover:text-red-300 transition-colors text-sm font-medium text-left cursor-pointer w-full disabled:opacity-50 disabled:pointer-events-none"
               >
-                <LogOut className="h-5 w-5" />
-                <span>Log out</span>
+                {isLoggingOut ? (
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                ) : (
+                  <LogOut className="h-5 w-5" />
+                )}
+                <span>{isLoggingOut ? "Logging out..." : "Log out"}</span>
               </button>
             </div>
           ) : (

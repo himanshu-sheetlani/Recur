@@ -3,6 +3,7 @@ import { useState } from "react";
 import { api, axiosError } from "../lib/axios";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { Loader2 } from "lucide-react";
 
 import type { ChangeEvent, FormEvent } from "react";
 import type { AxiosResponse } from "axios";
@@ -21,6 +22,7 @@ const Login = () => {
     password: "",
   });
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [msg, setMsg] = useState<string>("");
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
@@ -32,6 +34,8 @@ const Login = () => {
   }
 
   const callAPI = async (data: formType) => {
+    setIsLoading(true);
+    setMsg("");
     try {
       const response: AxiosResponse<APIRes> = await api.post(
         "/auth/login",
@@ -44,6 +48,8 @@ const Login = () => {
       const err=axiosError(e)
       toast.error(err);
       console.log(e);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -63,6 +69,7 @@ const Login = () => {
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    if (isLoading) return;
     validate(form);
   }
 
@@ -101,9 +108,10 @@ const Login = () => {
             value={form.username}
             onChange={handleChange}
             placeholder="Username"
+            disabled={isLoading}
             className="bg-white/5 border border-white/20 text-white placeholder:text-white/40 
                p-3 rounded-lg outline-none 
-               focus:border-blue-400 focus:bg-white/10 transition"
+               focus:border-blue-400 focus:bg-white/10 transition disabled:opacity-50"
           />
 
           <label htmlFor="login-password" className="sr-only">Password</label>
@@ -114,19 +122,30 @@ const Login = () => {
             value={form.password}
             onChange={handleChange}
             placeholder="Password"
+            disabled={isLoading}
             className="bg-white/5 border border-white/20 text-white placeholder:text-white/40 
                p-3 rounded-lg outline-none 
-               focus:border-blue-400 focus:bg-white/10 transition"
+               focus:border-blue-400 focus:bg-white/10 transition disabled:opacity-50"
           />
 
           <button
             type="submit"
+            disabled={isLoading}
             className="mt-2 bg-linear-to-r from-blue-500 to-blue-600 
                hover:from-blue-600 hover:to-blue-700 
                text-white p-3 rounded-lg font-medium 
-               transition shadow-lg hover:shadow-blue-500/30"
+               transition shadow-lg hover:shadow-blue-500/30
+               disabled:opacity-50 disabled:pointer-events-none
+               flex items-center justify-center gap-2 cursor-pointer"
           >
-            Login
+            {isLoading ? (
+              <>
+                <Loader2 className="h-5 w-5 animate-spin" />
+                <span>Logging in...</span>
+              </>
+            ) : (
+              <span>Login</span>
+            )}
           </button>
           <p>
             Don't have an account?

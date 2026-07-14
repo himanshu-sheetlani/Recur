@@ -47,9 +47,10 @@ const CreateAttempt = ({ setPopup, popup, fetchData }: NavbarProps) => {
     hint: false,
   });
 
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [stepperKey, setStepperKey] = useState(0);
 
-  const callAPI = async (data: attempts) => {
+  const callAPI = async (data: attempts): Promise<boolean> => {
     try {
       const record = {
         questionNo: data.questionNumber,
@@ -65,10 +66,12 @@ const CreateAttempt = ({ setPopup, popup, fetchData }: NavbarProps) => {
       );
       toast.success(response.data.msg);
       fetchData?.();
+      return true;
     } catch (e) {
       const err = axiosError(e);
       toast.error(err);
       console.log(e);
+      return false;
     }
   };
 
@@ -94,17 +97,22 @@ const CreateAttempt = ({ setPopup, popup, fetchData }: NavbarProps) => {
       return;
     }
 
-    await callAPI(attemptData);
-    setPopup(false);
-    setStepperKey((k) => k + 1);
-    setAttemptData({
-      questionNumber: 0,
-      questionName: "",
-      questionLink: "",
-      tag: "easy",
-      time: 0,
-      hint: false,
-    });
+    setIsSubmitting(true);
+    const success = await callAPI(attemptData);
+    setIsSubmitting(false);
+
+    if (success) {
+      setPopup(false);
+      setStepperKey((k) => k + 1);
+      setAttemptData({
+        questionNumber: 0,
+        questionName: "",
+        questionLink: "",
+        tag: "easy",
+        time: 0,
+        hint: false,
+      });
+    }
   };
 
   const handleSelectChange = (name: string, value: string) => {
@@ -129,9 +137,10 @@ const CreateAttempt = ({ setPopup, popup, fetchData }: NavbarProps) => {
     >
       <button
         onClick={() => {
-          setPopup(false);
+          if (!isSubmitting) setPopup(false);
         }}
-        className="absolute top-4 right-4 z-10"
+        disabled={isSubmitting}
+        className="absolute top-4 right-4 z-10 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         <div className="w-8 h-8 md:w-10 md:h-10 bg-white hover:bg-gray-200 transition rounded-full flex justify-center items-center">
           <X className="text-black h-4 w-4 md:h-5 md:w-5" />
@@ -146,6 +155,7 @@ const CreateAttempt = ({ setPopup, popup, fetchData }: NavbarProps) => {
           nextButtonText="Next"
           key={stepperKey}
           disableStepIndicators={true}
+          loading={isSubmitting}
         >
           <Step>
             <label htmlFor="qNo">
